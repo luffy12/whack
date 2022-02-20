@@ -18,7 +18,6 @@ export default function App() {
     if (playing) {
       let interval = setInterval(() => {
         let randomMole = Math.floor(Math.random() * MOLE) + 1;
-        console.log(randomMole);
         setHitPosition(randomMole);
         setColor(false);
 
@@ -51,7 +50,6 @@ export default function App() {
     }
   }, [score])
   const whack = (id) => {
-    console.log("clicked")
     if(id == hitPosition){
       setScore(score + 1);
       setColor(true);
@@ -88,10 +86,10 @@ export default function App() {
       justifyContent: "center",
       marginTop: "40px"
   }
-
-  const debouncedClick = debounce((mole)=>{
-    whack(mole);
-  },1000);
+// debounce logic to restrict the click only one time in one sec
+  // const debouncedClick = debounce((mole)=>{
+  //   whack(mole);
+  // },1000);
 
   return (
     <div className="App">
@@ -113,7 +111,7 @@ export default function App() {
                 {Array.from({ length: MOLE }, (_, i) => i + 1).map((mole) => (
                   <div
                     key={mole}
-                    onClick={() => debouncedClick(mole)}
+                    onClick={() => whack(mole)}
                     style={
                       moleStyle(hitPosition == mole)
                     }
